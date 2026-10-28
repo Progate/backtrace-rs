@@ -175,6 +175,8 @@ cfg_if::cfg_if! {
             all(
                 unix,
                 not(target_os = "emscripten"),
+                // WebAssembly cannot walk its own stack; its libunwind only raises exceptions.
+                not(target_family = "wasm"),
                 not(all(target_os = "ios", target_arch = "arm")),
             ),
             all(
